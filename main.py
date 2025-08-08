@@ -1,5 +1,7 @@
 import pygame
-import renderer
+import renderer as renderer
+
+from visualizer.sortingVisualizer import SortingVisualizer
 
 def init():
     width = 640 # Desire is to change this and make this configurable through a "Config" class that reads in a config file and parses it to find this information
@@ -38,4 +40,5 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    print(SortingVisualizer(5, 60, 42).visualize_frame(lambda x: x))
+    # run()
