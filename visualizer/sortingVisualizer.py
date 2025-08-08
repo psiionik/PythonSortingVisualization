@@ -1,3 +1,4 @@
+import pprint
 import random
 import sys
 
@@ -27,23 +28,10 @@ class SortingVisualizer(BaseVisualizer):
     def _shuffle_data(self):
         random.shuffle(self.data)
 
-    def quicksort_framebyframe(self):
-        
-        # The main driver of the the recursive quicksort implementation.
-        # This algorithm is basically divided into 3 parts:
-        # 1. Pick Random Pivot
-        # 2. Partition elements according to picked pivot
-        # 3. Recurse on the left and right partitions of the array
-        # So far in this implementation, it modifies the input array in `self.data` in-place.
-        def recurse(start, end):
-            if start >= end:
-                return
-            
-            picked_pivot = pick_pivot(start, end)
-            final_pivot_index = partition(start, end, picked_pivot)
+    def visualize_frame(self, f):
+        return f(self.data) 
 
-            recurse(start, final_pivot_index - 1)
-            recurse(final_pivot_index + 1, end)
+    def quicksort_framebyframe(self):
 
         # This function swaps two elements from the array given the indexes of the elements to swap
         def swap(a_index, b_index):
@@ -87,11 +75,27 @@ class SortingVisualizer(BaseVisualizer):
             swap(start, pivot_final_index)
 
             return pivot_final_index
+        
+        # Entrypoint / start of the quicksort algorithm / set-up
+        frames = []
+        stack = []
+        stack.append((0, len(self.data) - 1))
+        frames.append((0, len(self.data) - 1))
+        while stack:
+            start, end = stack.pop()
 
-        recurse(0, len(self.data) - 1)
+            if start >= end:
+                continue
 
-    def visualize_frame(self, f):
-        return f(self.data) 
+            picked_pivot = pick_pivot(start, end)
+            final_pivot_index = partition(start, end, picked_pivot)
+
+            stack.append((start, final_pivot_index - 1))
+            stack.append((final_pivot_index + 1, end))
+            frames.append((start, final_pivot_index - 1))
+            frames.append((final_pivot_index + 1, end))
+
+        pprint.pprint(frames)
     
 # ============================================================
 

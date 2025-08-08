@@ -32,6 +32,9 @@ def run():
                 running = False
 
         visualizer_renderer.fill_screen()
+        visualizer_renderer.draw_rectangle()
+
+        # This is necessary to update the display apparently
         pygame.display.flip()
 
         clock.tick(60)  # limits FPS to 60
@@ -40,5 +43,5 @@ def run():
 
 
 if __name__ == "__main__":
-    print(SortingVisualizer(5, 60, 42).visualize_frame(lambda x: x))
-    # run()
+    # print(SortingVisualizer(5, 60, 42).visualize_frame(lambda x: x))
+    run()

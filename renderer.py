@@ -11,3 +11,9 @@ class Renderer():
     def fill_screen(self):
         self.window.fill("purple")
 
+    def draw_rectangle(self):
+        red = (255, 0, 0)
+        blue = (0, 0, 255)
+        pygame.draw.rect(self.window, red, (100, 100, 200, 150))
+        pygame.draw.rect(self.window, blue, pygame.Rect(400, 200, 150, 100), 5)
+
